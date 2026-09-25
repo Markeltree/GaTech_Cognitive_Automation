@@ -2,7 +2,7 @@
 // Replace the placeholders with your agency's details and the client's approved quote.
 
 export const site = {
-  agency: 'Northfold',
+  agency: 'GaTech',
   agencyTagline: 'AI & software engineering studio',
   email: 'hello@northfold.dev',
   phone: '+1 (555) 010-2040',

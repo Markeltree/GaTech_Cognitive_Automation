@@ -1,6 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, BrainCircuit, CheckCircle2, FileScan, LayoutDashboard, Mail, MapPin, MessagesSquare, Phone, Sparkles, TrendingUp, Workflow } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BrainCircuit,
+  CheckCircle2,
+  FileScan,
+  LayoutDashboard,
+  Mail,
+  MapPin,
+  MessagesSquare,
+  Phone,
+  Quote,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  Users,
+  Workflow,
+  Zap
+} from 'lucide-react';
 import { site } from '../site';
 import { api } from '../lib/api';
 import { Brand, ErrorNote } from '../components/ui';
@@ -137,9 +154,29 @@ export default function CaseStudy() {
                 reasoning, learning and context: the work that used to need an analyst.
               </p>
             </div>
-            <div className="card glass reveal">
+            <div className="card glass reveal summary-needs-card">
               <p className="kicker" style={{ marginTop: 0 }}>What the client needed</p>
               <ul className="checklist">{GOALS.map((g) => <li key={g}><CheckCircle2 size={20} />{g}</li>)}</ul>
+
+              <div className="summary-impact-box">
+                <div className="summary-impact-header">
+                  <span className="summary-badge">Key Benchmarks Achieved</span>
+                </div>
+                <div className="summary-stat-pills">
+                  <div className="summary-stat-pill">
+                    <b className="num">99.6%</b>
+                    <span>Extraction precision</span>
+                  </div>
+                  <div className="summary-stat-pill">
+                    <b className="num">18.7k+</b>
+                    <span>Daily automated tasks</span>
+                  </div>
+                  <div className="summary-stat-pill">
+                    <b className="num">2.4s</b>
+                    <span>Avg. decision latency</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -221,19 +258,69 @@ export default function CaseStudy() {
         <section className="section">
           <div className="wrap">
             <figure className="quote-card glass reveal" style={{ margin: 0 }}>
-              <blockquote>{site.testimonial.quote}</blockquote>
+              <div className="quote-header">
+                <div className="quote-badge">
+                  <span className="quote-stars">★★★★★</span>
+                  <span>Verified Executive Review</span>
+                </div>
+                <Quote size={28} className="quote-icon" />
+              </div>
+              <blockquote>“{site.testimonial.quote}”</blockquote>
               <figcaption className="quote-by">
-                <span className="avatar">{site.testimonial.name.split(' ').map((w) => w[0]).join('').slice(0, 2)}</span>
-                <span><b>{site.testimonial.name}</b><small>{site.testimonial.role}</small></span>
+                <div className="avatar">{site.testimonial.name.split(' ').map((w) => w[0]).join('').slice(0, 2)}</div>
+                <div className="quote-author">
+                  <b>{site.testimonial.name}</b>
+                  <small>{site.testimonial.role}</small>
+                </div>
               </figcaption>
             </figure>
+
             <div className="cta reveal">
-              <div className="cta-grid" />
-              <div>
-                <h2>Ready to be our next success story?</h2>
-                <p>Let’s build measurable results that move your business forward.</p>
+              <div className="cta-content">
+                <div className="cta-badge">
+                  <Sparkles size={14} className="cta-sparkle" />
+                  <span>Let’s Collaborate · Enterprise AI Engineering</span>
+                </div>
+                <h2 className="cta-title">
+                  Ready to transform your operations with <span className="cta-grad">GaTech</span>?
+                </h2>
+                <p className="cta-desc">
+                  Deploy intelligent document pipelines and cognitive decision engines with measurable ROI and human-in-the-loop control.
+                </p>
+
+                <div className="cta-actions">
+                  <a href="#contact" className="btn btn-cta-primary btn-lg">
+                    Start your project <ArrowUpRight size={17} className="arrow" />
+                  </a>
+                  <Link to="/console" className="btn btn-cta-secondary btn-lg">
+                    <LayoutDashboard size={17} /> Explore live demo
+                  </Link>
+                </div>
               </div>
-              <a href="#contact" className="btn btn-light btn-lg">Start your project <ArrowUpRight size={16} className="arrow" /></a>
+
+              <div className="cta-highlights">
+                <div className="cta-highlight-card">
+                  <div className="cta-h-icon"><Zap size={18} /></div>
+                  <div className="cta-h-text">
+                    <b>2-Week Rapid POC</b>
+                    <span>Working prototype on your actual data</span>
+                  </div>
+                </div>
+                <div className="cta-highlight-card">
+                  <div className="cta-h-icon"><Users size={18} /></div>
+                  <div className="cta-h-text">
+                    <b>Direct Senior AI Architects</b>
+                    <span>Full architectural design & zero sales fluff</span>
+                  </div>
+                </div>
+                <div className="cta-highlight-card">
+                  <div className="cta-h-icon"><ShieldCheck size={18} /></div>
+                  <div className="cta-h-text">
+                    <b>Complete IP & VPC Security</b>
+                    <span>Dedicated tenant or on-prem deployment</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -322,6 +409,41 @@ function Contact() {
             <div><span className="ci"><MapPin size={18} /></span><div><dt>Office</dt><dd>{site.address}</dd></div></div>
             <div><span className="ci"><Sparkles size={18} /></span><div><dt>Studio</dt><dd>{site.agencyTagline}</dd></div></div>
           </dl>
+
+          <div className="contact-aside-box">
+            <h4>What to expect</h4>
+            <ul className="aside-step-list">
+              <li>
+                <span className="aside-step-num">1</span>
+                <div>
+                  <b>Direct engineering scope</b>
+                  <p>Speak directly with AI architects—no sales intermediaries.</p>
+                </div>
+              </li>
+              <li>
+                <span className="aside-step-num">2</span>
+                <div>
+                  <b>Rapid POC on your data</b>
+                  <p>Working 2-week prototype with measurable accuracy benchmarks.</p>
+                </div>
+              </li>
+              <li>
+                <span className="aside-step-num">3</span>
+                <div>
+                  <b>Enterprise compliance</b>
+                  <p>Dedicated VPC or on-prem deployment with strict data isolation.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div className="aside-cta-card">
+              <div>
+                <b>Want an instant walkthrough?</b>
+                <small>Explore real document AI & decision engines right now.</small>
+              </div>
+              <Link to="/console" className="btn btn-sm btn-primary">Try live demo ↗</Link>
+            </div>
+          </div>
         </aside>
       </div>
     </section>

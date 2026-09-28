@@ -29,19 +29,27 @@ export default function HeroPreview() {
           </div>
           <div className="preview-cols">
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <small className="muted">Throughput, 24h</small><ThroughputLegend />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                <small className="muted" style={{ fontWeight: 600 }}>Throughput (24h)</small>
+                <ThroughputLegend />
               </div>
-              {data ? <ThroughputChart data={data.throughput} height={190} compact /> : <div style={{ height: 190 }} />}
+              {data ? <ThroughputChart data={data.throughput} height={175} compact /> : <div style={{ height: 175 }} />}
             </div>
-            <div style={{ display: 'grid', gap: 10, alignContent: 'start' }}>
-              <small className="muted">Document pipeline</small>
-              {(data?.pipeline ?? []).map((p) => (
-                <div key={p.stage} style={{ display: 'grid', gap: 4 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>{p.stage}</span><span className="num muted">{p.count.toLocaleString()}</span></div>
-                  <span className="pipe-bar" style={{ height: 6 }}><i style={{ width: `${(p.count / max) * 100}%` }} /></span>
-                </div>
-              ))}
+            <div className="preview-pipeline-col">
+              <small className="muted" style={{ fontWeight: 600 }}>Document pipeline</small>
+              <div className="preview-pipeline-list">
+                {(data?.pipeline ?? []).map((p) => (
+                  <div key={p.stage} className="preview-pipe-row">
+                    <div className="preview-pipe-info">
+                      <span className="preview-pipe-stage">{p.stage}</span>
+                      <span className="preview-pipe-count">{p.count.toLocaleString()}</span>
+                    </div>
+                    <span className="pipe-bar" style={{ height: 5 }}>
+                      <i style={{ width: `${(p.count / max) * 100}%` }} />
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

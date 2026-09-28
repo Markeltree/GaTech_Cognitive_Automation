@@ -3,7 +3,7 @@ import { BrainCircuit, CheckCircle2, UserCheck } from 'lucide-react';
 import { api } from '../lib/api';
 import { useAction } from '../lib/hooks';
 import { SAMPLE_DECISIONS } from '../lib/samples';
-import { Confidence, Empty, ErrorNote, Gauge, MetaLine, Pill, Thinking } from '../components/ui';
+import { Confidence, CustomSelect, Empty, ErrorNote, Gauge, MetaLine, Pill, Thinking } from '../components/ui';
 
 const VERDICT = {
   approve: ['good', 'Approve'],
@@ -13,6 +13,16 @@ const VERDICT = {
 };
 const IMPACT = { supports: 'var(--good)', opposes: 'var(--danger)', neutral: 'var(--faint)' };
 const riskColor = (n) => (n < 40 ? 'var(--good)' : n < 70 ? 'var(--warn)' : 'var(--danger)');
+
+const DOMAIN_OPTIONS = [
+  'finance',
+  'customer service',
+  'procurement',
+  'operations',
+  'hr',
+  'compliance',
+  'general',
+];
 
 export default function Decisions() {
   const [form, setForm] = useState({ domain: 'finance', scenario: '', policy: '' });
@@ -41,9 +51,12 @@ export default function Decisions() {
           </div>
           <div>
             <label className="label" htmlFor="d-domain">Domain</label>
-            <select id="d-domain" className="select" value={form.domain} onChange={set('domain')}>
-              {['finance', 'customer service', 'procurement', 'operations', 'hr', 'compliance', 'general'].map((d) => <option key={d}>{d}</option>)}
-            </select>
+            <CustomSelect
+              id="d-domain"
+              value={form.domain}
+              onChange={set('domain')}
+              options={DOMAIN_OPTIONS}
+            />
           </div>
           <div>
             <label className="label" htmlFor="d-case">Case</label>

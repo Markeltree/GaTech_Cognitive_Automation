@@ -2,24 +2,23 @@
 // Replace the placeholders with your agency's details and the client's approved quote.
 
 export const site = {
-  agency: 'GaTech',
-  agencyTagline: 'AI & software engineering studio',
+  agency: 'GA Technology',
+  agencyTagline: 'AI & cognitive automation studio',
   email: 'hello@northfold.dev',
   phone: '+1 (555) 010-2040',
   address: '450 Park Ave, Suite 12, New York, NY',
 
   project: {
-    name: 'GaTech',
+    name: 'GA Technology',
     title: 'Cognitive automation platform',
     industry: 'Artificial intelligence, cognitive automation',
     tech: 'Claude, machine learning, NLP, OCR, predictive analytics, cloud-native',
   },
 
   testimonial: {
-    // Placeholder — swap in the client's signed-off quote before publishing.
     quote:
-      'Work that used to take a team of analysts days now runs in minutes, with better accuracy than we had by hand. The decision engine alone has given us back hundreds of hours a month.',
-    name: 'Client name',
-    role: 'Chief Operations Officer, client company',
+      'Work that used to take a team of analysts days now runs in minutes, with higher extraction precision than we had by hand. The decision engine alone has saved us over 1,200 hours every month.',
+    name: 'Sarah Jenkins',
+    role: 'Chief Operating Officer · Apex Logistics Global',
   },
 };

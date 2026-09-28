@@ -1,25 +1,41 @@
 import { useEffect, useId, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Check, ChevronDown } from 'lucide-react';
 import { useHealth } from '../lib/hooks';
 
-export function Brand({ name = 'GaTech' }) {
+export function Brand({ name = 'GA Technology' }) {
   const id = useId().replace(/:/g, '');
   return (
     <span className="brand">
-      <svg className="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <svg className="brand-mark" viewBox="0 0 48 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <linearGradient id={`${id}g`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#3ee08f" /><stop offset=".5" stopColor="#22d3ee" /><stop offset="1" stopColor="#8b5cf6" />
+          <linearGradient id={`${id}gaGrad`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#0B132B" />
+            <stop offset="55%" stopColor="#0369A1" />
+            <stop offset="100%" stopColor="#0284C7" />
           </linearGradient>
         </defs>
-        <rect width="32" height="32" rx="9" fill={`url(#${id}g)`} />
-        <path d="M10 16 22 9M10 16l12 7" stroke="#04130b" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="10" cy="16" r="3" fill="#fff" />
-        <circle cx="22" cy="9" r="3" fill="#fff" />
-        <circle cx="22" cy="23" r="3" fill="#fff" />
+        {/* Left slanted loop */}
+        <path
+          d="M19 4H10.5C6 4 2.5 8 1.8 13L0.2 27C-0.6 32.5 2.5 36.5 7.5 36.5H16C20.5 36.5 24 32.5 24.8 27.5L26.4 13C27.2 7.5 24 4 19 4Z"
+          stroke={`url(#${id}gaGrad)`}
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Right interlocking slanted loop */}
+        <path
+          d="M39.5 12H31C26.5 12 23 16 22.2 21L20.6 35C19.8 40.5 23 44.5 28 44.5H36.5C41 44.5 44.5 40.5 45.3 35.5L46.9 21C47.7 15.5 44.5 12 39.5 12Z"
+          stroke={`url(#${id}gaGrad)`}
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
-      {name}
+      <span className="brand-text-lockup">
+        <span className="brand-title">GA</span>
+        <span className="brand-sub">Technology</span>
+      </span>
     </span>
   );
 }
@@ -139,4 +155,77 @@ export function useToast() {
   const [msg, setMsg] = useState(null);
   useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(null), 2600); return () => clearTimeout(t); }, [msg]);
   return [msg ? createPortal(<div className="toast" role="status">{msg}</div>, document.body) : null, setMsg];
+}
+
+export function CustomSelect({ value, onChange, options, id, placeholder = 'Select an option' }) {
+  const [open, setOpen] = useState(false);
+
+  // Normalize options to objects
+  const items = options.map((opt) => {
+    if (typeof opt === 'string') {
+      return { value: opt, label: opt.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) };
+    }
+    return opt;
+  });
+
+  const selected = items.find((i) => i.value === value) || items[0];
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && !e.target.closest?.('.custom-select-wrap')) {
+        setOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (!open) return;
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div className="custom-select-wrap">
+      <button
+        type="button"
+        id={id}
+        className={`custom-select-trigger ${open ? 'open' : ''}`}
+        onClick={() => setOpen(!open)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="custom-select-val">
+          {selected ? selected.label : placeholder}
+        </span>
+        <ChevronDown size={16} className={`select-arrow ${open ? 'rotate' : ''}`} />
+      </button>
+
+      {open && (
+        <div className="custom-select-menu" role="listbox">
+          {items.map((opt) => {
+            const isSelected = opt.value === value;
+            return (
+              <div
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                className={`custom-select-option ${isSelected ? 'selected' : ''}`}
+                onClick={() => {
+                  onChange({ target: { value: opt.value } });
+                  setOpen(false);
+                }}
+              >
+                <span>{opt.label}</span>
+                {isSelected && <Check size={16} className="option-check" />}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }

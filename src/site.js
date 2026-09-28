@@ -4,7 +4,7 @@
 export const site = {
   agency: 'GA Technology',
   agencyTagline: 'AI & cognitive automation studio',
-  email: 'hello@northfold.dev',
+  email: 'hello@gatech.dev',
   phone: '+1 (555) 010-2040',
   address: '450 Park Ave, Suite 12, New York, NY',
 
